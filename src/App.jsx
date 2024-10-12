@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import './App.css'
-import Header from './Header'
-import Sidebar from './Sidebar'
-import Home from './Home'
+import Header from './components/Header'
+import Sidebar from './components/Sidebar'
+import Home from './components/Home'
+import Chatbot from './components/Chatbot'
 
 function App() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
@@ -16,6 +17,7 @@ function App() {
       <Header OpenSidebar={OpenSidebar}/>
       <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
       <Home />
+      <Chatbot/>
     </div>
   )
 }

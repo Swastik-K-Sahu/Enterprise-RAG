@@ -24,3 +24,9 @@ package-lock.json
 *.njsproj
 *.sln
 *.sw?
+
+#server-flask
+server-flask/venv
+server-flask/Financial Statements.csv
+server-flask/__pycache__
+server-flask/templates
