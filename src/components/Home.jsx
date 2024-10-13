@@ -84,10 +84,10 @@ function Home() {
             </div>
             <div className='card'>
                 <div className='card-inner'>
-                    <h3>ALERTS</h3>
-                    <BsFillBellFill className='card_icon'/>
+                    <h3>EMPLOYEE COUNT</h3>
+                    <BsPeopleFill className='card_icon'/>
                 </div>
-                <h1>42</h1>
+                <h1>4.2K</h1>
             </div>
         </div>
 

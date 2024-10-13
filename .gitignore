@@ -29,4 +29,4 @@ package-lock.json
 server-flask/venv
 server-flask/Financial Statements.csv
 server-flask/__pycache__
-server-flask/templates
+server-flask/env

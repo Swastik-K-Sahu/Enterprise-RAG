@@ -30,7 +30,7 @@ const Chatbot = () => {
       });
 
       const data = await response.json();
-      // console.log(data);
+      
       setMessages((prevMessages) => [
         ...prevMessages,
         { text: data.response, sender: 'bot' },

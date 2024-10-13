@@ -156,7 +156,7 @@ body {
 }
 
 .card:nth-child(4) {
-  background-color: #d50000;
+  background-color: #aed500;
 }
 
 .card-inner {
@@ -204,7 +204,7 @@ body {
   bottom: 80px;
   right: 20px;
   width: 450px;
-  height: 600px;
+  height: 700px;
   background-color: white;
   border: 1px solid #ddd;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -242,23 +242,31 @@ body {
   flex: 1;
   padding: 5px;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Align messages in the center */
 }
 
 .message {
   margin: 7px 5px;
   padding: 8px 10px;
   border-radius: 5px;
-  max-width: 95%;
+  max-width: 60%; /* Set messages to take 60% of the window */
+  display: flex;
+  align-items: center;
+  word-wrap: break-word;
 }
 
 .message.user {
   background-color: #daf7a6;
   align-self: flex-end;
+  justify-content: flex-end;
 }
 
 .message.bot {
   background-color: #ffddcc;
   align-self: flex-start;
+  justify-content: flex-start;
 }
 
 .loading {
@@ -288,6 +296,7 @@ body {
   margin-left: 10px;
   cursor: pointer;
 }
+
 /* Chatbot End */
 
 
@@ -336,10 +345,3 @@ body {
     display: none;
   }
 }
-
-
-
-
-
-
-
