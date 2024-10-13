@@ -16,7 +16,7 @@ google_api_key = os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=google_api_key)
 
 
-data = pd.read_csv("Financial Statements.csv")
+data = pd.read_csv("Path_csv_file") #Replace it with path to your local csv file
 texts = data.apply(lambda row: ' '.join(row.astype(str)), axis=1).tolist()
 documents = [Document(page_content=text) for text in texts]
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
@@ -27,7 +27,7 @@ embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")  # Ensur
 vectorstore = Chroma.from_documents(documents=docs, embedding=embeddings)
 retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 10})
 
-llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest", temperature=0, max_tokens=400)
+llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest", temperature=0, max_tokens=400) #Gemini LLM 
 system_prompt = ('''
 You are an intelligent assistant designed to answer questions using either retrieved context from enterprise knowledge bases or an external LLM when context is insufficient. When you receive a question, carefully examine the provided context first. If context is available, use it to provide an accurate response. If not, answer based on general knowledge using the LLM.
 
