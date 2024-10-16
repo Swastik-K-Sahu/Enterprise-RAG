@@ -1,347 +1,42 @@
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #dce3ef;
-  color: #000001;
-  font-family: 'Montserrat', sans-serif;
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
 }
 
-.icon {
-  vertical-align: middle;
-  line-height: 1px;
-  font-size: 20px;
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
 }
-.icon_header {
-  vertical-align: middle;
-  line-height: 1px;
-  font-size: 26px;
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
 }
-.icon, .icon_header {
-  margin-right: 5px;
-}
-
-.close_icon {
-  color: red;
-  margin-left: 30px;
-  margin-top: 10px;
-  cursor: pointer;
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-.grid-container {
-  display: grid;
-  grid-template-columns: 260px 1fr 1fr 1fr;
-  grid-template-rows: 0.2fr 3fr;
-  grid-template-areas:
-    'sidebar header header header'
-    'sidebar main main main';
-  height: 100vh;
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-/* Header  */
-.header {
-  grid-area: header;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 30px 0 30px;
-  box-shadow: 0 6px 7px -3px rgba(0, 0, 0, 0.35);
-}
-
-.menu-icon {
-  display: none;
-}
-/* End Header  */
-
-/* Sidebar  */
-#sidebar {
-  grid-area: sidebar;
-  height: 100%;
-  background-color: #c9ccd3;
-  overflow-y: auto;
-  transition: all 0.5s;
-  -webkit-transition: all 0.5s;
-}
-
-.sidebar-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 30px 0px 30px;
-  margin-bottom: 30px;
-}
-
-.sidebar-title > span {
-  display: none;
-}
-
-.sidebar-brand {
-  margin-top: 15px;
-  font-size: 20px;
-  font-weight: 700;
-}
-
-.sidebar-list {
-  padding: 0;
-  list-style-type: none;
-}
-
-.sidebar-list-item {
-  padding: 20px 20px 20px 20px;
-  font-size: 18px;
-}
-
-.sidebar-list-item:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  cursor: pointer;
-}
-
-.sidebar-list-item > a {
-  text-decoration: none;
-  color: #000003;
-}
-
-.sidebar-responsive {
-  display: inline !important;
-  position: absolute;
-  /*
-    we want the z-index of the sidebar higher so that
-    the charts are not showing over the sidebar 
-    on small screens
-  */
-  /* z-index: 12 !important; */
-}
-
-/* End Sidebar  */
-
-
-/* Main  */  
-.main-container {
-  grid-area: main;
-  overflow-y: auto;
-  padding: 20px 20px;
-  color: rgba(12, 3, 3, 0.95);
-}
-
-.main-title {
-  display: flex;
-  justify-content: space-between;
-}
-
-.main-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 20px;
-  margin: 15px 0;
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
 }
 
 .card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  padding: 8px 15px;
-  border-radius: 5px;
+  padding: 2em;
 }
 
-.card:first-child {
-  background-color: #2962ff;
-}
-
-.card:nth-child(2) {
-  background-color: #ff6d00;
-}
-
-.card:nth-child(3) {
-  background-color: #2e7d32;
-}
-
-.card:nth-child(4) {
-  background-color: #aed500;
-}
-
-.card-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.card-inner > .card_icon {
-  font-size: 25px;
-}
-
-.charts {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin-top: 60px;
-  height: 300px;
-}
-
-/* End Main  */
-
-/* Chatbot */
-/* Chatbot toggle button (floating icon) */
-.chatbot-toggle-button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #007bff;
-  border: none;
-  border-radius: 50%;
-  color: white;
-  font-size: 24px;
-  width: 50px;
-  height: 50px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Chatbot window styling */
-.chatbot-window {
-  position: fixed;
-  bottom: 80px;
-  right: 20px;
-  width: 450px;
-  height: 700px;
-  background-color: white;
-  border: 1px solid #ddd;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  border-radius: 10px;
-}
-
-/* Chatbot header (includes close button) */
-.chatbot-header {
-  background-color: #007bff;
-  color: white;
-  padding: 10px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.chatbot-header h4 {
-  margin: 0;
-}
-
-.chatbot-header button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-/* Messages and chatbox layout */
-.chatbot-messages {
-  flex: 1;
-  padding: 5px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Align messages in the center */
-}
-
-.message {
-  margin: 7px 5px;
-  padding: 8px 10px;
-  border-radius: 5px;
-  max-width: 60%; /* Set messages to take 60% of the window */
-  display: flex;
-  align-items: center;
-  word-wrap: break-word;
-}
-
-.message.user {
-  background-color: #daf7a6;
-  align-self: flex-end;
-  justify-content: flex-end;
-}
-
-.message.bot {
-  background-color: #ffddcc;
-  align-self: flex-start;
-  justify-content: flex-start;
-}
-
-.loading {
-  font-style: italic;
-  color: gray;
-}
-
-.chatbot-input {
-  display: flex;
-  padding: 10px;
-  border-top: 1px solid #ddd;
-}
-
-.chatbot-input input {
-  flex: 1;
-  padding: 8px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.chatbot-input button {
-  padding: 8px 12px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  margin-left: 10px;
-  cursor: pointer;
-}
-
-/* Chatbot End */
-
-
-/* Medium <= 992px */
-  
-@media screen and (max-width: 992px) {
-  .grid-container {
-    grid-template-columns: 1fr;
-    grid-template-rows: 0.2fr 3fr;
-    grid-template-areas:
-      'header'
-      'main';
-  }
-
-  #sidebar {
-    display: none;
-  }
-
-  .menu-icon {
-    display: inline;
-  }
-
-  .sidebar-title > span {
-    display: inline;
-  }
-}
-/* Small <= 768px */
-  
-@media screen and (max-width: 768px) {
-  .main-cards {
-    grid-template-columns: 1fr;
-    gap: 10px;
-    margin-bottom: 0;
-  }
-
-  .charts {
-    grid-template-columns: 1fr;
-    margin-top: 30px;
-  }
-}
-
-/* Extra Small <= 576px */
-
-@media screen and (max-width: 576px) {
-  .hedaer-left {
-    display: none;
-  }
+.read-the-docs {
+  color: #888;
 }

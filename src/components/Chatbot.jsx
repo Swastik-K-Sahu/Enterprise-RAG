@@ -1,24 +1,23 @@
-import React, { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const Chatbot = () => {
-  const [isOpen, setIsOpen] = useState(false);  // To toggle chatbot open/close
-  const [messages, setMessages] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState([{ text: 'Hello! How can I help you?', isBot: true }]);
   const [input, setInput] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [isBotTyping, setIsBotTyping] = useState(false);
+  const bottomRef = useRef(null);
 
-  // Function to toggle chatbot window
-  const toggleChatbot = () => {
+  const toggleChat = () => {
     setIsOpen(!isOpen);
   };
 
-  // Function to handle user input and bot responses
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const newMessages = [...messages, { text: input, sender: 'user' }];
-    setMessages(newMessages);
+  const handleSendMessage = async () => {
+    if (!input.trim()) return;
+
+    setMessages([...messages, { text: input, isBot: false }]);
     setInput('');
 
-    setLoading(true);
+    setIsBotTyping(true);
 
     try {
       const response = await fetch('http://127.0.0.1:5000/chat', {
@@ -30,55 +29,83 @@ const Chatbot = () => {
       });
 
       const data = await response.json();
-      
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { text: data.response, sender: 'bot' },
-      ]);
+      setIsBotTyping(false);
+
+      setMessages(prev => [...prev, { text: data.response || 'Sorry, I did not understand.', isBot: true }]);
     } catch (error) {
-      console.error('Error fetching chatbot response:', error);
-    } finally {
-      setLoading(false);
+      setIsBotTyping(false);
+      setMessages(prev => [...prev, { text: 'Error fetching response. Please try again.', isBot: true }]);
     }
   };
 
-  return (
-    <div className="chatbot-wrapper">
-      {/* Chatbot Icon - Can be replaced with an actual chat icon */}
-      <button className="chatbot-toggle-button" onClick={toggleChatbot}>
-        💬 {/* Emoji as a placeholder for chat icon */}
-      </button>
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSendMessage();
+    }
+  };
 
-      {/* Chatbot window (only shown if isOpen is true) */}
+  useEffect(() => {
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages, isBotTyping]);
+
+  return (
+    <div>
+      {!isOpen && (
+        <button
+          onClick={toggleChat}
+          className="fixed bottom-4 right-4 bg-blue-500 text-white rounded-full p-4 shadow-lg hover:bg-blue-600 focus:outline-none text-xl"
+        >
+          💬
+        </button>
+      )}
+
       {isOpen && (
-        <div className="chatbot-window">
-          <div className="chatbot-header">
-            <h4>Chat with us!</h4>
-            <button onClick={toggleChatbot}>✖️</button>
+        <div className="fixed mr-5 mb-5 bottom-0 right-0 bg-white shadow-lg rounded-lg w-96 h-[600px] flex flex-col">
+
+          <div className="bg-blue-500 text-white p-2 flex justify-between items-center rounded-t-lg">
+            <h2 className="text-lg font-semibold">Chatbot</h2>
+            <button
+              onClick={toggleChat}
+              className="text-white text-xl hover:text-gray-200 focus:outline-none"
+            >
+              &#x2715;
+            </button>
           </div>
-          <div className="chatbot-messages">
-            {messages.map((msg, index) => (
-              <div
-                key={index}
-                className={`message ${msg.sender === 'user' ? 'user' : 'bot'}`}
-              >
-                {msg.text}
+
+          <div className="flex-1 overflow-y-auto p-2 bg-gray-100">
+            {messages.map((msg, idx) => (
+              <div key={idx} className={`p-2 ${msg.isBot ? 'text-left' : 'text-right'}`}>
+                <span className={`inline-block p-2 rounded-lg ${msg.isBot ? 'bg-blue-100' : 'bg-green-100'}`}>
+                  {msg.text}
+                </span>
               </div>
             ))}
-            {loading && <div className="loading">Bot is typing...</div>}
+            {isBotTyping && (
+              <div className="p-2 text-left">
+                <span className="inline-block p-2 rounded-lg bg-blue-100">Bot is typing...</span>
+              </div>
+            )}
+            <div ref={bottomRef} />
           </div>
-          <form onSubmit={handleSubmit} className="chatbot-input">
+
+          <div className="flex p-2 border-t border-gray-300">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Type your message..."
-              required
+              onKeyDown={handleKeyPress}
+              placeholder="Type a message..."
+              className="flex-grow p-2 border border-gray-300 rounded-l-md"
             />
-            <button type="submit" disabled={loading}>
+            <button
+              onClick={handleSendMessage}
+              className="bg-blue-500 text-white px-4 py-2 rounded-r-md"
+            >
               Send
             </button>
-          </form>
+          </div>
         </div>
       )}
     </div>

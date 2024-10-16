@@ -11,10 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
-
-# Editor directories and files
-.env
 package-lock.json
+# Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
@@ -25,8 +23,8 @@ package-lock.json
 *.sln
 *.sw?
 
-#server-flask
+#Backend files
 server-flask/venv
-server-flask/Financial Statements.csv
-server-flask/__pycache__
-server-flask/env
+server-flask/.env
+server-flask/data
+server-flask/chroma
